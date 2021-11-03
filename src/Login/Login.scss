@@ -1,0 +1,57 @@
+$background-color: #fff;
+$component-color: #f8f8f8;
+$whatsapp-green: #0a8d48;
+
+.app {
+  display: grid;
+  place-items: center;
+  background-color: $background-color;
+  height: 100vh;
+  transform-origin: 0% 0%;
+  position: relative;
+}
+
+.login {
+  background-color: $component-color;
+  height: 100%;
+  width: 100%;
+  display: grid;
+  place-items: center;
+}
+
+.login__container {
+  padding: 100px;
+  text-align: center;
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+
+  img {
+    object-fit: contain;
+    height: 100px;
+    margin-bottom: 40px;
+  }
+
+  button {
+    margin-top: 50px;
+    text-transform: inherit !important;
+    background-color: $whatsapp-green !important;
+    color: white;
+  }
+}
+
+@media (max-width: 760px) {
+  .login__container {
+    padding: 100px 50px;
+    h1 {
+      font-size: 28px;
+      width: 100%;
+    }
+  }
+}
+
+@media (max-width: 435px) {
+  .login__container {
+    padding: 50px 25px;
+  }
+}
