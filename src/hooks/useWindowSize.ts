@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 
 type Transform<T extends number> = `scale(${T})`;
 
-type WindowSize = {
+export type WindowSize = {
   width: number | undefined;
   height: number | undefined;
   isMobile: boolean;
@@ -13,7 +13,7 @@ const CLASSIC_WIDTH = 1366;
 const CLASSIC_HEIGHT = 768;
 const MOBILE_HEIGHT = 760;
 
-function useWindowSize(): WindowSize {
+export default function useWindowSize(): WindowSize {
   const [windowSize, setWindowSize] = useState<WindowSize>({
     width: undefined,
     height: undefined,
