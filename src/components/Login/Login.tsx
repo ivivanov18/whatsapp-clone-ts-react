@@ -1,7 +1,6 @@
 import React from "react";
 import Button from "@mui/material/Button";
-import { auth, provider, signIn } from "../firebaseApp";
-
+import { auth, provider, signIn } from "../../firebaseApp";
 import "./Login.scss";
 
 type LoginProps = {};
