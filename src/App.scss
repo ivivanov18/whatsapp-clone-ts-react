@@ -1,0 +1,19 @@
+.app {
+  display: grid;
+  place-items: center;
+  background-color: white;
+  height: 100vh;
+  transform-origin: 0% 0%;
+  position: relative;
+}
+
+.app__body {
+  background-color: #ededed;
+  display: flex;
+  height: 100%;
+  width: 100%;
+  box-shadow: -1px 4px 20px 6px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+  position: relative;
+  border-top: 1px solid lightgrey;
+}
