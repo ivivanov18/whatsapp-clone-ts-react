@@ -1,0 +1,47 @@
+.sidebar__chat--container::-webkit-scrollbar {
+  display: none;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.sidebar__chat--container {
+  & > h2 {
+    padding-top: 15px;
+    padding-bottom: 10px;
+    padding-left: 20px;
+    font-weight: 700;
+    color: black;
+    transition: opacity 400ms;
+  }
+}
+
+.no-result {
+  width: 100%;
+  height: 80%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  animation: noresult-fade-in 400ms forwards;
+  padding: 1em;
+
+  & > div > .MuiSvgIcon-root:nth-child(1) {
+    transform: scale(3);
+  }
+
+  & > div {
+    transform: scale(1.8);
+  }
+
+  & > div > div {
+    transform: translate(-60%, -90%);
+  }
+}
+
+.cancel-root {
+  background-color: #ffffff;
+  border-radius: 50%;
+  width: 25px;
+  height: 25px;
+}

@@ -1,7 +1,42 @@
-type SidebarListProps = {};
+import { CancelOutlined, SearchOutlined } from "@mui/icons-material";
+import { CircularProgress } from "@mui/material";
+import SidebarListItem from "../SidebarListItem";
 
-function SidebarList(props: SidebarListProps) {
-  return <div>SidebarList</div>;
+type SidebarListProps = {
+  title: "Chats" | "Rooms" | "Users" | "Search";
+  data: Array<any>;
+};
+
+function SidebarList({ title, data }: SidebarListProps) {
+  if (!data) {
+    return (
+      <div className="loader__container sidebar__loader">
+        <CircularProgress />
+      </div>
+    );
+  }
+  if (!data.length && title == "Search") {
+    return (
+      <div className="no-result">
+        <div>
+          <SearchOutlined />
+          <div className="cancel-root">
+            <CancelOutlined />
+          </div>
+        </div>
+        <h2>No {title.toLocaleLowerCase()}</h2>
+      </div>
+    );
+  }
+
+  return (
+    <div className="sidebar__chat--container">
+      <h2>{title}</h2>
+      {data.map((item) => (
+        <SidebarListItem key={item.id} item={item} />
+      ))}
+    </div>
+  );
 }
 
 export default SidebarList;

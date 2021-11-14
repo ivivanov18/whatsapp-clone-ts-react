@@ -1,0 +1,54 @@
+.sidebar__chat {
+  display: flex;
+  //   padding: 20px;
+  align-items: center;
+  cursor: pointer;
+  border-bottom: 1px solid #f6f6f6;
+  width: 100%;
+  max-height: 87px;
+  transition: opacity 400ms;
+
+  &:active {
+    background-color: #ebebeb;
+    transition: background-color 50ms;
+  }
+}
+
+.avatar__container {
+  position: relative;
+}
+
+.sidebar__chat--info {
+  margin-left: 15px;
+
+  & > h2 {
+    font-size: 16px;
+    margin-bottom: 8px;
+    font-weight: 500;
+  }
+
+  p {
+    align-items: center;
+    color: #6f6f6f;
+    font-weight: 400;
+
+    svg {
+      color: #868686;
+      vertical-align: middle;
+    }
+  }
+
+  span {
+    margin-left: 2px;
+    color: #6f6f6f;
+    vertical-align: middle;
+  }
+
+  p,
+  h2,
+  p span {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+}

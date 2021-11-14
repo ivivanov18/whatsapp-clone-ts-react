@@ -26,7 +26,7 @@ type Tab = 1 | 2 | 3 | 4;
 
 function Sidebar({ user, page }: SidebarProps) {
   const [menu, setMenu] = useState<Tab>(1);
-  const rooms = useRooms();
+  const rooms = useRooms() ?? [];
   console.table(rooms);
   const signOut = () => {
     auth.signOut();
@@ -60,8 +60,19 @@ function Sidebar({ user, page }: SidebarProps) {
   }
 
   let List = null;
-  if (menu === 1 || menu === 2 || menu === 3) {
-    List = <SidebarList />;
+  switch (menu) {
+    case 1:
+      List = <SidebarList title="Chats" data={[]} />;
+      break;
+    case 2:
+      List = <SidebarList title="Rooms" data={rooms} />;
+      break;
+    case 3:
+      List = <SidebarList title="Users" data={[]} />;
+      break;
+    case 4:
+      List = <SidebarList title="Search" data={[]} />;
+      break;
   }
 
   return (
