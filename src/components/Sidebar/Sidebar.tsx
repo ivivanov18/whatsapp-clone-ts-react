@@ -1,6 +1,7 @@
 import { ReactNode, useState } from "react";
 import { NavLink } from "react-router-dom";
-import { auth } from "../../firebaseApp";
+import { auth, db } from "../../firebaseApp";
+import { serverTimestamp, addDoc, collection } from "@firebase/firestore";
 import { Avatar, IconButton } from "@mui/material";
 import {
   Add,
@@ -27,6 +28,14 @@ function Sidebar({ user, page }: SidebarProps) {
 
   const signOut = () => {
     auth.signOut();
+  };
+
+  const onAddRoomClick = async () => {
+    const name = prompt("Enter the room name");
+    await addDoc(collection(db, "rooms"), {
+      name,
+      timestamp: serverTimestamp(),
+    });
   };
 
   let Nav: React.ElementType;
@@ -109,7 +118,7 @@ function Sidebar({ user, page }: SidebarProps) {
       </div>
       {List}
       <div className="sidebar__chat--addRoom">
-        <IconButton>
+        <IconButton onClick={onAddRoomClick}>
           <Add />
         </IconButton>
       </div>
