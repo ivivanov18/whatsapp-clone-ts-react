@@ -23,7 +23,7 @@ export default function useWindowSize(): WindowSize {
 
   useEffect(() => {
     window.addEventListener("resize", handleResize);
-    handleResize();
+    // handleResize();
 
     function handleResize() {
       const { innerWidth, innerHeight } = window;
