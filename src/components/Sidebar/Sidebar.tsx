@@ -14,6 +14,7 @@ import {
 import type { User } from "firebase/auth";
 import { WindowSize } from "../../hooks/useWindowSize";
 import SidebarList from "../SidebarList";
+import useRooms from "../../hooks/useRooms";
 import "./Sidebar.scss";
 
 type SidebarProps = {
@@ -25,7 +26,8 @@ type Tab = 1 | 2 | 3 | 4;
 
 function Sidebar({ user, page }: SidebarProps) {
   const [menu, setMenu] = useState<Tab>(1);
-
+  const rooms = useRooms();
+  console.table(rooms);
   const signOut = () => {
     auth.signOut();
   };
