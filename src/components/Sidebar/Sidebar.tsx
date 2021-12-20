@@ -16,6 +16,8 @@ import { WindowSize } from "../../hooks/useWindowSize";
 import SidebarList from "../SidebarList";
 import useRooms from "../../hooks/useRooms";
 import "./Sidebar.scss";
+import useUsers from "../../hooks/useUsers";
+import useChats from "../../hooks/useChats";
 
 type SidebarProps = {
   page: WindowSize;
@@ -27,7 +29,9 @@ type Tab = 1 | 2 | 3 | 4;
 function Sidebar({ user, page }: SidebarProps) {
   const [menu, setMenu] = useState<Tab>(1);
   const rooms = useRooms() ?? [];
-  console.table(rooms);
+  const users = useUsers(user) ?? [];
+  const chats = useChats(user) ?? [];
+
   const signOut = () => {
     auth.signOut();
   };
@@ -62,13 +66,13 @@ function Sidebar({ user, page }: SidebarProps) {
   let List = null;
   switch (menu) {
     case 1:
-      List = <SidebarList title="Chats" data={[]} />;
+      List = <SidebarList title="Chats" data={chats} />;
       break;
     case 2:
       List = <SidebarList title="Rooms" data={rooms} />;
       break;
     case 3:
-      List = <SidebarList title="Users" data={[]} />;
+      List = <SidebarList title="Users" data={users} />;
       break;
     case 4:
       List = <SidebarList title="Search" data={[]} />;
