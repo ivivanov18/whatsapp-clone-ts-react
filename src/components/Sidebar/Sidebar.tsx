@@ -1,7 +1,14 @@
-import { ReactNode, useState } from "react";
+import { FormEvent, ReactNode, useState } from "react";
 import { NavLink } from "react-router-dom";
 import { auth, db } from "../../firebaseApp";
-import { serverTimestamp, addDoc, collection } from "@firebase/firestore";
+import {
+  serverTimestamp,
+  addDoc,
+  collection,
+  query,
+  where,
+} from "@firebase/firestore";
+import { useCollection } from "react-firebase-hooks/firestore";
 import { Avatar, IconButton } from "@mui/material";
 import {
   Add,
@@ -28,6 +35,7 @@ type Tab = 1 | 2 | 3 | 4;
 
 function Sidebar({ user, page }: SidebarProps) {
   const [menu, setMenu] = useState<Tab>(1);
+  const [searchResults, setSearchResults] = useState<any[]>([]);
   const rooms = useRooms() ?? [];
   const users = useUsers(user) ?? [];
   const chats = useChats(user) ?? [];
@@ -42,6 +50,29 @@ function Sidebar({ user, page }: SidebarProps) {
       name,
       timestamp: serverTimestamp(),
     });
+  };
+
+  const searchUsersRooms = async (event: any) => {
+    event.preventDefault();
+    const searchTerm = event.target.elements.namedItem("search")?.value;
+    const usersRef = collection(db, "users");
+    const roomsRef = collection(db, "rooms");
+    const usersQuery = query(usersRef, where("name", "==", searchTerm));
+    const roomsQuery = query(roomsRef, where("name", "==", searchTerm));
+    const [usersSnapshot] = useCollection(usersQuery);
+    const [roomsSnapshot] = useCollection(roomsQuery);
+    const users =
+      usersSnapshot?.docs.map((doc: any) => ({
+        id: doc.id,
+        ...doc.data(),
+      })) ?? [];
+    const rooms =
+      roomsSnapshot?.docs.map((doc: any) => ({
+        id: doc.id,
+        ...doc.data(),
+      })) ?? [];
+    setSearchResults([...users, ...rooms]);
+    setMenu(4);
   };
 
   let Nav: React.ElementType;
@@ -93,9 +124,17 @@ function Sidebar({ user, page }: SidebarProps) {
         </div>
       </div>
       <div className="sidebar__search">
-        <form className="sidebar__search--container">
+        <form
+          onSubmit={searchUsersRooms}
+          className="sidebar__search--container"
+        >
           <SearchOutlined />
-          <input placeholder="Search for users" type="text" id="search" />
+          <input
+            placeholder="Search for users"
+            type="text"
+            id="search"
+            name="search"
+          />
         </form>
       </div>
       <div className="sidebar__menu">
