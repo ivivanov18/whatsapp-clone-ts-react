@@ -7,6 +7,7 @@ import {
   collection,
   query,
   where,
+  getDocs,
 } from "@firebase/firestore";
 import { useCollection } from "react-firebase-hooks/firestore";
 import { Avatar, IconButton } from "@mui/material";
@@ -55,12 +56,16 @@ function Sidebar({ user, page }: SidebarProps) {
   const searchUsersRooms = async (event: any) => {
     event.preventDefault();
     const searchTerm = event.target.elements.namedItem("search")?.value;
-    const usersRef = collection(db, "users");
-    const roomsRef = collection(db, "rooms");
-    const usersQuery = query(usersRef, where("name", "==", searchTerm));
-    const roomsQuery = query(roomsRef, where("name", "==", searchTerm));
-    const [usersSnapshot] = useCollection(usersQuery);
-    const [roomsSnapshot] = useCollection(roomsQuery);
+    const usersQuery = query(
+      collection(db, "users"),
+      where("name", "==", searchTerm)
+    );
+    const roomsQuery = query(
+      collection(db, "rooms"),
+      where("name", "==", searchTerm)
+    );
+    const usersSnapshot = await getDocs(usersQuery);
+    const roomsSnapshot = await getDocs(roomsQuery);
     const users =
       usersSnapshot?.docs.map((doc: any) => ({
         id: doc.id,
@@ -106,7 +111,7 @@ function Sidebar({ user, page }: SidebarProps) {
       List = <SidebarList title="Users" data={users} />;
       break;
     case 4:
-      List = <SidebarList title="Search" data={[]} />;
+      List = <SidebarList title="Search" data={searchResults} />;
       break;
   }
 
