@@ -1,0 +1,21 @@
+.chat {
+  width: 70%;
+}
+
+.chat__background {
+  color: gold;
+}
+
+.chat__header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 0.8rem;
+  border-bottom: 1px solid lightgrey;
+  background-color: #ededed;
+  z-index: 1;
+}
+
+.chat__header-info {
+  flex: 1;
+}

@@ -16,6 +16,8 @@ export default function useRoom(userId: string, roomId: string) {
     photoURL:
       snapshot.data()?.photoURL ||
       `https://avatars.dicebear.com/api/human/${snapshot.id}.svg`,
+
+    name: snapshot.data()?.name,
     ...snapshot.data(),
   };
 }
